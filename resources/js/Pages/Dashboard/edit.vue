@@ -21,12 +21,12 @@ const onFileChange = (e) => {
         >
         <div class="flex justify-center items-center">
             <div class="w-1.5 h-8 bg-[#01AAEB] rounded-full mr-3"></div>
-             <h1 class="text-md text-gray-800">កែប្រែព័ត៌មានមន្រ្តី</h1>
+             <h1 class="text-md text-gray-800 font-kantumruy">កែប្រែព័ត៌មានមន្រ្តី</h1>
         </div>
 
             <Link
                 href="/dashboard"
-                class="flex bg-[#01AAEB] hover:bg-[#018dbd] text-sm text-white px-4 py-2 rounded-lg items-center gap-2 transition-all"
+                class="flex bg-[#01AAEB] font-kantumruy hover:bg-[#018dbd] text-sm text-white px-4 py-2 rounded-lg items-center gap-2 transition-all"
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -70,7 +70,7 @@ const onFileChange = (e) => {
                 />
                 <button
                     @click="triggerUpload"
-                    class="w-full bg-[#8BC34A] text-white py-3 rounded-xl text-xs tracking-widest hover:bg-[#9ad656e1] transition-all shadow-lg shadow-red-100"
+                    class="w-full bg-[#8BC34A] text-white font-kantumruy py-3 rounded-xl text-xs tracking-widest hover:bg-[#9ad656e1] transition-all shadow-lg shadow-red-100"
                 >
                     <i class="fas fa-image mr-2"></i> បញ្ចូលរូបភាព
                 </button>
@@ -79,10 +79,10 @@ const onFileChange = (e) => {
             <div
                 class="lg:col-span-3 bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
             >
-                <h1 class="text-xl font-bold text-gray-800 p-8">
+                <h1 class="text-xl font-bold text-gray-800 p-8 font-kantumruy">
                     ព័ត៌មានមន្រ្តី
                 </h1>
-                <div class="p-8">
+                <div class="p-8 font-kantumruy">
                     <div class="max-w-2xl mx-auto">
                         <div class="grid grid-cols-1 gap-5">
                             <div class="flex items-center gap-6">

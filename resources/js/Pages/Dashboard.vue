@@ -49,7 +49,7 @@ const staticStaff = [
             >
                 <div class="flex items-center">
                     <div class="w-1.5 h-8 bg-[#01AAEB] rounded-full mr-3"></div>
-                    <h2 class="text-md text-gray-600">
+                    <h2 class="text-md text-gray-600 font-kantumruy">
                         បញ្ជីតារាងឈ្មោះមន្រ្តី
                     </h2>
                 </div>
@@ -82,7 +82,7 @@ const staticStaff = [
                         </tr>
                     </thead>
                     <tbody
-                        class="text-[16px] font-bold text-gray-500 text-center"
+                        class="text-[16px] font-bold text-gray-500 text-center font-kantumruy"
                     >
                         <tr
                             v-for="staff in staticStaff"
