@@ -17,7 +17,7 @@ const onFileChange = (e) => {
     <Head title="បញ្ចូលព័ត៌មានមន្រ្តី | ស្នងការដ្ឋាននគរបាលខេត្តប៉ៃលិន" />
     <AuthenticatedLayout>
         <div
-            class="bg-white px-6 py-4 rounded-2xl shadow-sm border border-gray-100 flex justify-between items-center mb-6"
+            class="bg-white px-6 py-4 rounded-2xl shadow-sm border border-gray-100 flex justify-between items-center mb-6 font-kantumruy"
         >
             <div class="flex justify-center items-center">
                 <div class="w-1.5 h-8 bg-[#01AAEB] rounded-full mr-3"></div>
@@ -391,7 +391,7 @@ const onFileChange = (e) => {
                                     <option>បេសកកម្ម</option>
                                     <option>សិក្សា</option>
                                     <option>ចូលនិវត្តន៍</option>
-                                    
+
                                 </select>
                             </div>
                             <div class="flex items-center gap-6">
