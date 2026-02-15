@@ -391,6 +391,7 @@ const onFileChange = (e) => {
                                     <option>បេសកកម្ម</option>
                                     <option>សិក្សា</option>
                                     <option>ចូលនិវត្តន៍</option>
+                                    
                                 </select>
                             </div>
                             <div class="flex items-center gap-6">
