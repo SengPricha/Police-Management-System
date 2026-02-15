@@ -1,0 +1,486 @@
+<div class="space-y-1">
+                    <button
+                        @click="isStaffOpen = !isStaffOpen"
+                        :class="
+                            route().current('staff.*')
+                                ? 'bg-[#01AAEB] text-white shadow-lg shadow-blue-100'
+                                : 'text-gray-500 hover:bg-[#01AAEB] hover:text-white'
+                        "
+                        class="flex items-center justify-between w-full px-4 py-3 rounded-xl font-bold transition-all duration-300 focus:outline-none"
+                    >
+                        <div class="flex items-center">
+                            <span class="mr-3" v-html="Icons.Staff"></span>
+                            <span>រចនាសម្ព័ន្ធ</span>
+                        </div>
+                        <svg
+                            :class="{ 'rotate-180': isStaffOpen }"
+                            class="w-4 h-4 transition-transform duration-300"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M19 9l-7 7-7-7"
+                            />
+                        </svg>
+                    </button>
+
+                    <transition
+                        enter-active-class="transition ease-out duration-200"
+                        enter-from-class="opacity-0 -translate-y-2 scale-95"
+                        enter-to-class="opacity-100 translate-y-0 scale-100"
+                        leave-active-class="transition ease-in duration-150"
+                        leave-from-class="opacity-100 translate-y-0 scale-100"
+                        leave-to-class="opacity-0 -translate-y-2 scale-95"
+                    >
+                        <div
+                            v-show="isStaffOpen"
+                            class="mt-2 ml-6 space-y-1 border-l-2 border-gray-100 pl-4"
+                        >
+                            <div class="space-y-1 mt-1">
+                                <button
+                                    @click="isOneOpen = !isOneOpen"
+                                    :class="
+                                        route().current('one.*')
+                                            ? 'bg-[#01AAEB] text-white shadow-lg shadow-blue-100'
+                                            : 'text-gray-500 hover:bg-[#01AAEB] hover:text-white'
+                                    "
+                                    class="flex items-center justify-between w-full py-2 px-4 rounded-xl text-md transition-colors focus:outline-none"
+                                >
+                                    <span
+                                        >I-អង្គភាពស្នងការដ្ឋានខេត្តប៉ៃលិន</span
+                                    >
+                                    <svg
+                                        :class="{ 'rotate-180': isOneOpen }"
+                                        class="w-3 h-3 transition-transform duration-200"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M19 9l-7 7-7-7"
+                                        />
+                                    </svg>
+                                </button>
+
+                                <transition
+                                    enter-active-class="transition ease-out duration-200"
+                                    enter-from-class="opacity-0 -translate-y-1"
+                                    enter-to-class="opacity-100 translate-y-0"
+                                    leave-active-class="transition ease-in duration-150"
+                                    leave-from-class="opacity-100 translate-y-0"
+                                    leave-to-class="opacity-0 -translate-y-1"
+                                >
+                                    <div
+                                        v-show="isOneOpen"
+                                        class="ml-4 space-y-1 border-l border-gray-200 pl-4"
+                                    >
+                                        <Link
+                                            :href="route('staff.index')"
+                                            :class="
+                                                route().current('staff.one')
+                                                    ? 'bg-[#01AAEB] text-white shadow-lg shadow-blue-100'
+                                                    : 'text-gray-500 hover:bg-[#01AAEB] hover:text-white'
+                                            "
+                                            class="block py-2 px-4 rounded-xl text-sm transition-colors"
+                                            >*-ស្នងការ និងស្នងការរង</Link
+                                        >
+                                        <Link
+                                            :href="route('staff.index')"
+                                            :class="
+                                                route().current('staff.one')
+                                                    ? 'bg-[#01AAEB] text-white shadow-lg shadow-blue-100'
+                                                    : 'text-gray-500 hover:bg-[#01AAEB] hover:text-white'
+                                            "
+                                            class="block py-2 px-4 rounded-xl text-sm transition-colors"
+                                            >១-ផែនការងារធនធានមនុស្ស</Link
+                                        >
+                                        <Link
+                                            :href="route('staff.index')"
+                                            :class="
+                                                route().current('staff.one')
+                                                    ? 'bg-[#01AAEB] text-white shadow-lg shadow-blue-100'
+                                                    : 'text-gray-500 hover:bg-[#01AAEB] hover:text-white'
+                                            "
+                                            class="block py-2 px-4 rounded-xl text-sm transition-colors"
+                                            >២-ផែនការងារសេនាធិការ</Link
+                                        >
+                                        <Link
+                                            :href="route('staff.index')"
+                                            :class="
+                                                route().current('staff.one')
+                                                    ? 'bg-[#01AAEB] text-white shadow-lg shadow-blue-100'
+                                                    : 'text-gray-500 hover:bg-[#01AAEB] hover:text-white'
+                                            "
+                                            class="block py-2 px-4 rounded-xl text-sm transition-colors"
+                                            >៣-ផែនការងារនគរបាលព្រហ្មទណ្ឌ</Link
+                                        >
+                                        <Link
+                                            :href="route('staff.index')"
+                                            :class="
+                                                route().current('staff.one')
+                                                    ? 'bg-[#01AAEB] text-white shadow-lg shadow-blue-100'
+                                                    : 'text-gray-500 hover:bg-[#01AAEB] hover:text-white'
+                                            "
+                                            class="block py-2 px-4 rounded-xl text-sm transition-colors"
+                                            >៤-ផែនការងារនគរបាលប្រឆាំងបទល្មើសសេដ្ឋកិច្ច</Link
+                                        >
+                                        <Link
+                                            :href="route('staff.index')"
+                                            :class="
+                                                route().current('staff.one')
+                                                    ? 'bg-[#01AAEB] text-white shadow-lg shadow-blue-100'
+                                                    : 'text-gray-500 hover:bg-[#01AAEB] hover:text-white'
+                                            "
+                                            class="block py-2 px-4 rounded-xl text-sm transition-colors"
+                                            >៥-ផែនការងារប្រឆាំងគ្រឿងញៀន</Link
+                                        >
+                                        <Link
+                                            :href="route('staff.index')"
+                                            :class="
+                                                route().current('staff.one')
+                                                    ? 'bg-[#01AAEB] text-white shadow-lg shadow-blue-100'
+                                                    : 'text-gray-500 hover:bg-[#01AAEB] hover:text-white'
+                                            "
+                                            class="block py-2 px-4 rounded-xl text-sm transition-colors"
+                                            >៦-ផែនការងារប្រឆាំងការជួញដូរមនុស្ស និងការពារអនីតិជន និងការពារយេនឌ័រ</Link
+                                        >
+                                        <Link
+                                            :href="route('staff.index')"
+                                            :class="
+                                                route().current('staff.one')
+                                                    ? 'bg-[#01AAEB] text-white shadow-lg shadow-blue-100'
+                                                    : 'text-gray-500 hover:bg-[#01AAEB] hover:text-white'
+                                            "
+                                            class="block py-2 px-4 rounded-xl text-sm transition-colors"
+                                            >៧-ផែនការងារសន្ដិសុខ</Link
+                                        >
+                                        <Link
+                                            :href="route('staff.index')"
+                                            :class="
+                                                route().current('staff.one')
+                                                    ? 'bg-[#01AAEB] text-white shadow-lg shadow-blue-100'
+                                                    : 'text-gray-500 hover:bg-[#01AAEB] hover:text-white'
+                                            "
+                                            class="block py-2 px-4 rounded-xl text-sm transition-colors"
+                                            >៨-ផែនការងារសណ្ដាប់ធ្នាប់</Link
+                                        >
+                                        <Link
+                                            :href="route('staff.index')"
+                                            :class="
+                                                route().current('staff.one')
+                                                    ? 'bg-[#01AAEB] text-white shadow-lg shadow-blue-100'
+                                                    : 'text-gray-500 hover:bg-[#01AAEB] hover:text-white'
+                                            "
+                                            class="block py-2 px-4 rounded-xl text-sm transition-colors"
+                                            >៩-ផែនការងារគ្រប់គ្រងអាវុធជាតិផ្ទុះ និងអគ្គីភ័យ</Link
+                                        >
+                                        <Link
+                                            :href="route('staff.index')"
+                                            :class="
+                                                route().current('staff.one')
+                                                    ? 'bg-[#01AAEB] text-white shadow-lg shadow-blue-100'
+                                                    : 'text-gray-500 hover:bg-[#01AAEB] hover:text-white'
+                                            "
+                                            class="block py-2 px-4 rounded-xl text-sm transition-colors"
+                                            >១០-ផែនការងារអន្ដោប្រវេសន៍</Link
+                                        >
+                                        <Link
+                                            :href="route('staff.index')"
+                                            :class="
+                                                route().current('staff.one')
+                                                    ? 'bg-[#01AAEB] text-white shadow-lg shadow-blue-100'
+                                                    : 'text-gray-500 hover:bg-[#01AAEB] hover:text-white'
+                                            "
+                                            class="block py-2 px-4 rounded-xl text-sm transition-colors"
+                                            >១១-ផែនការងារអត្តសញ្ញាណកម្ម</Link
+                                        >
+                                        <Link
+                                            :href="route('staff.index')"
+                                            :class="
+                                                route().current('staff.one')
+                                                    ? 'bg-[#01AAEB] text-white shadow-lg shadow-blue-100'
+                                                    : 'text-gray-500 hover:bg-[#01AAEB] hover:text-white'
+                                            "
+                                            class="block py-2 px-4 rounded-xl text-sm transition-colors"
+                                            >១២-ផែនការងារភស្ដុភារ និងហិរញ្ញវត្ថុ</Link
+                                        >
+                                        <Link
+                                            :href="route('staff.index')"
+                                            :class="
+                                                route().current('staff.one')
+                                                    ? 'bg-[#01AAEB] text-white shadow-lg shadow-blue-100'
+                                                    : 'text-gray-500 hover:bg-[#01AAEB] hover:text-white'
+                                            "
+                                            class="block py-2 px-4 rounded-xl text-sm transition-colors"
+                                            >១៣-ផែននគរបាលការពារព្រំដែនគោកលេខ៨២១</Link
+                                        >
+                                        <Link
+                                            :href="route('staff.index')"
+                                            :class="
+                                                route().current('staff.one')
+                                                    ? 'bg-[#01AAEB] text-white shadow-lg shadow-blue-100'
+                                                    : 'text-gray-500 hover:bg-[#01AAEB] hover:text-white'
+                                            "
+                                            class="block py-2 px-4 rounded-xl text-sm transition-colors"
+                                            >១៤-ផែននគរបាលការពារព្រំដែនគោកលេខ៨២១</Link
+                                        >
+                                    </div>
+                                </transition>
+                            </div>
+
+                            <div class="space-y-1 mt-1">
+                                <button
+                                    @click="isTwoOpen = !isTwoOpen"
+                                    :class="
+                                        route().current('two.*')
+                                            ? 'bg-[#01AAEB] text-white shadow-lg shadow-blue-100'
+                                            : 'text-gray-500 hover:bg-[#01AAEB] hover:text-white'
+                                    "
+                                    class="flex items-center justify-between w-full py-2 px-4 rounded-xl text-md transition-colors focus:outline-none"
+                                >
+                                    <span
+                                        >II-អធិការដ្ឋាននគរបាល<br />
+                                        (ចំណុះស្នងការដ្ឋានខេត្តប៉ៃលិន)
+                                    </span>
+                                    <svg
+                                        :class="{ 'rotate-180': isTwoOpen }"
+                                        class="w-3 h-3 transition-transform duration-200"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M19 9l-7 7-7-7"
+                                        />
+                                    </svg>
+                                </button>
+
+                                <transition
+                                    enter-active-class="transition ease-out duration-200"
+                                    enter-from-class="opacity-0 -translate-y-1"
+                                    enter-to-class="opacity-100 translate-y-0"
+                                    leave-active-class="transition ease-in duration-150"
+                                    leave-from-class="opacity-100 translate-y-0"
+                                    leave-to-class="opacity-0 -translate-y-1"
+                                >
+                                    <div
+                                        v-show="isTwoOpen"
+                                        class="ml-4 space-y-1 border-l border-gray-200 pl-4"
+                                    >
+                                        <Link
+                                            :href="route('staff.index')"
+                                            :class="
+                                                route().current('two.*')
+                                                    ? 'bg-[#01AAEB] text-white shadow-lg shadow-blue-100'
+                                                    : 'text-gray-500 hover:bg-[#01AAEB] hover:text-white'
+                                            "
+                                            class="flex items-center justify-between w-full py-2 px-4 rounded-xl text-md transition-colors focus:outline-none"
+                                            >១-អធិការដ្ឋាននគរបាលក្រុងប៉ៃលិន</Link
+                                        >
+                                        <Link
+                                            :href="route('staff.index')"
+                                            :class="
+                                                route().current('two.*')
+                                                    ? 'bg-[#01AAEB] text-white shadow-lg shadow-blue-100'
+                                                    : 'text-gray-500 hover:bg-[#01AAEB] hover:text-white'
+                                            "
+                                            class="flex items-center justify-between w-full py-2 px-4 rounded-xl text-md transition-colors focus:outline-none"
+                                            >២-អធិការដ្ឋាននគរបាលស្រុកសាលាក្រៅ</Link
+                                        >
+                                    </div>
+                                </transition>
+                            </div>
+
+                            <div class="space-y-1 mt-1">
+                                <button
+                                    @click="isThreeOpen = !isThreeOpen"
+                                    :class="
+                                        route().current('two.*')
+                                            ? 'bg-[#01AAEB] text-white shadow-lg shadow-blue-100'
+                                            : 'text-gray-500 hover:bg-[#01AAEB] hover:text-white'
+                                    "
+                                    class="flex items-center justify-between w-full py-2 px-4 rounded-xl text-md transition-colors focus:outline-none"
+                                >
+                                    <span
+                                        >III-វរសេនាតូចនគរបាលការពារ <br />
+                                        ព្រំដែនគោក លេខ៨២១ <br />
+                                        (ចំណុះស្នងការដ្ឋាន)
+                                    </span>
+                                    <svg
+                                        :class="{ 'rotate-180': isThreeOpen }"
+                                        class="w-3 h-3 transition-transform duration-200"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M19 9l-7 7-7-7"
+                                        />
+                                    </svg>
+                                </button>
+
+                                <transition
+                                    enter-active-class="transition ease-out duration-200"
+                                    enter-from-class="opacity-0 -translate-y-1"
+                                    enter-to-class="opacity-100 translate-y-0"
+                                    leave-active-class="transition ease-in duration-150"
+                                    leave-from-class="opacity-100 translate-y-0"
+                                    leave-to-class="opacity-0 -translate-y-1"
+                                >
+                                    <div
+                                        v-show="isThreeOpen"
+                                        class="ml-4 space-y-1 border-l border-gray-200 pl-4"
+                                    >
+                                        <Link
+                                            :href="route('staff.index')"
+                                            :class="
+                                                route().current('two.*')
+                                                    ? 'bg-[#01AAEB] text-white shadow-lg shadow-blue-100'
+                                                    : 'text-gray-500 hover:bg-[#01AAEB] hover:text-white'
+                                            "
+                                            class="flex items-center justify-between w-full py-2 px-4 rounded-xl text-md transition-colors focus:outline-none"
+                                            >១-អធិការ</Link
+                                        >
+                                        <Link
+                                            :href="route('staff.index')"
+                                            :class="
+                                                route().current('two.*')
+                                                    ? 'bg-[#01AAEB] text-white shadow-lg shadow-blue-100'
+                                                    : 'text-gray-500 hover:bg-[#01AAEB] hover:text-white'
+                                            "
+                                            class="flex items-center justify-between w-full py-2 px-4 rounded-xl text-md transition-colors focus:outline-none"
+                                            >២-អធិការរង</Link
+                                        >
+                                        <Link
+                                            :href="route('staff.index')"
+                                            :class="
+                                                route().current('two.*')
+                                                    ? 'bg-[#01AAEB] text-white shadow-lg shadow-blue-100'
+                                                    : 'text-gray-500 hover:bg-[#01AAEB] hover:text-white'
+                                            "
+                                            class="flex items-center justify-between w-full py-2 px-4 rounded-xl text-md transition-colors focus:outline-none"
+                                            >៣-នាយផ្នែក</Link
+                                        >
+                                        <Link
+                                            :href="route('staff.index')"
+                                            :class="
+                                                route().current('two.*')
+                                                    ? 'bg-[#01AAEB] text-white shadow-lg shadow-blue-100'
+                                                    : 'text-gray-500 hover:bg-[#01AAEB] hover:text-white'
+                                            "
+                                            class="flex items-center justify-between w-full py-2 px-4 rounded-xl text-md transition-colors focus:outline-none"
+                                            >៤-នាយរងផ្នែក</Link
+                                        >
+                                        <Link
+                                            :href="route('staff.index')"
+                                            :class="
+                                                route().current('two.*')
+                                                    ? 'bg-[#01AAEB] text-white shadow-lg shadow-blue-100'
+                                                    : 'text-gray-500 hover:bg-[#01AAEB] hover:text-white'
+                                            "
+                                            class="flex items-center justify-between w-full py-2 px-4 rounded-xl text-md transition-colors focus:outline-none"
+                                            >៥-មន្រ្តី</Link
+                                        >
+
+                                        <div class="w-64">
+                                            <button
+                                                @click="
+                                                    isPoliceDropdownOpen =
+                                                        !isPoliceDropdownOpen
+                                                "
+                                                :class="
+                                                    route().current('staff.*')
+                                                        ? 'bg-[#01AAEB] text-white shadow-lg'
+                                                        : 'text-gray-500 hover:bg-[#01AAEB] hover:text-white'
+                                                "
+                                                class="flex items-center justify-between w-full py-2 px-4 rounded-xl text-md transition-colors focus:outline-none"
+                                            >
+                                                <span
+                                                    >*-ប៉ុស្ដិ៍នគរបាលរដ្ឋបាល
+                                                </span>
+
+                                                <svg
+                                                    :class="{
+                                                        'rotate-180':
+                                                            isPoliceDropdownOpen,
+                                                    }"
+                                                    class="w-4 h-4 transition-transform duration-200"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    viewBox="0 0 24 24"
+                                                >
+                                                    <path
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M19 9l-7 7-7-7"
+                                                    />
+                                                </svg>
+                                            </button>
+
+                                            <div
+                                                v-show="isPoliceDropdownOpen"
+                                                class="mt-2 ml-4 space-y-1"
+                                            >
+                                                <Link
+                                                    :href="route('staff.index')"
+                                                    :class="
+                                                        route().current(
+                                                            'staff.*',
+                                                        )
+                                                            ? 'bg-[#01AAEB] text-white shadow-lg'
+                                                            : 'text-gray-500 hover:bg-[#01AAEB] hover:text-white'
+                                                    "
+                                                    class="flex items-center justify-between w-full py-2 px-4 rounded-xl text-md transition-colors focus:outline-none"
+                                                >
+                                                    ១-នាយប៉ុស្ដិ៍
+                                                </Link>
+
+                                                <Link
+                                                    :href="route('staff.index')"
+                                                    :class="
+                                                        route().current(
+                                                            'staff.*',
+                                                        )
+                                                            ? 'bg-[#01AAEB] text-white shadow-lg'
+                                                            : 'text-gray-500 hover:bg-[#01AAEB] hover:text-white'
+                                                    "
+                                                    class="flex items-center justify-between w-full py-2 px-4 rounded-xl text-md transition-colors focus:outline-none"
+                                                >
+                                                    ២-នាយរងប៉ុស្ដិ៍
+                                                </Link>
+
+                                                <Link
+                                                    :href="route('staff.index')"
+                                                    :class="
+                                                        route().current(
+                                                            'staff.*',
+                                                        )
+                                                            ? 'bg-[#01AAEB] text-white shadow-lg'
+                                                            : 'text-gray-500 hover:bg-[#01AAEB] hover:text-white'
+                                                    "
+                                                    class="flex items-center justify-between w-full py-2 px-4 rounded-xl text-md transition-colors focus:outline-none"
+                                                >
+                                                    ៣-មន្រ្តី
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </transition>
+                            </div>
+                        </div>
+                    </transition>
+                </div>
