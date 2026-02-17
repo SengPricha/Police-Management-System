@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class CreateController extends Controller
+class EvictionController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Dashboard/create');
+        return Inertia::render('Eviction/index');
     }
 }

@@ -2,6 +2,8 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head, Link } from "@inertiajs/vue3";
 import { ref } from "vue";
+import { reactive, computed } from "vue";
+import { dataTree } from "../../data.js";
 
 const fileInput = ref(null);
 const imageUrl = ref(null);
@@ -10,6 +12,54 @@ const triggerUpload = () => fileInput.value.click();
 const onFileChange = (e) => {
     const file = e.target.files[0];
     if (file) imageUrl.value = URL.createObjectURL(file);
+};
+
+const form = reactive({
+    status: "",
+    category: "",
+    unit: "",
+    result: "",
+});
+
+// ៣. Logic សម្រាប់ទាញជម្រើសតាមជាន់
+const level2Options = computed(() => {
+    return form.status ? dataTree[form.status]?.categories : {};
+});
+
+const level3Options = computed(() => {
+    if (!form.status || !form.category) return {};
+    return dataTree[form.status]?.categories[form.category]?.units;
+});
+
+const level4Options = computed(() => {
+    if (!form.status || !form.category || !form.unit) return [];
+    return dataTree[form.status]?.categories[form.category]?.units[form.unit]
+        ?.results;
+});
+
+// ៤. លុបតម្លៃកូនៗ នៅពេលប្តូរតម្លៃមេ
+const clearLevels = (level) => {
+    if (level <= 1) {
+        form.category = "";
+        form.unit = "";
+        form.result = "";
+    } else if (level <= 2) {
+        form.unit = "";
+        form.result = "";
+    } else if (level <= 3) {
+        form.result = "";
+    }
+};
+
+const fileList = ref([]);
+const handleFileChange = (event) => {
+    const selectedFiles = Array.from(event.target.files);
+
+    fileList.value = [...fileList.value, ...selectedFiles];
+};
+
+const removeFile = (index) => {
+    fileList.value.splice(index, 1);
 };
 </script>
 
@@ -232,98 +282,105 @@ const onFileChange = (e) => {
                                     >អង្គភាព *</label
                                 >
                                 <select
+                                    v-model="form.status"
+                                    @change="clearLevels(1)"
                                     class="flex-1 border-gray-300 bg-white rounded-xl px-4 py-3 focus:border-[#01AAEB] focus:ring-2 focus:ring-[#01AAEB]/20 outline-none transition-all"
                                 >
-                                    <option disabled selected>
+                                    <option value="" disabled selected>
                                         ជ្រើសរើសអង្គភាព
                                     </option>
-                                    <option>
-                                        ស្នងការដ្ឋាននគរបាលខេត្តប៉ៃលិន
-                                    </option>
-                                    <option>
-                                        អធិការដ្ឋាននគរបាលក្រុងប៉ៃលិន
-                                    </option>
-                                    <option>
-                                        អធិការដ្ឋាននគរបាលស្រុកសាលាក្រៅ
-                                    </option>
-                                    <option>
-                                        វរសេនាតូចនគរបាលការពារព្រំដែនគោកលេខ៨២១
+                                    <option
+                                        v-for="(val, key) in dataTree"
+                                        :key="key"
+                                        :value="key"
+                                    >
+                                        {{ val.label }}
                                     </option>
                                 </select>
                             </div>
+
                             <div class="flex items-center gap-6">
                                 <label
                                     class="text-md font-bold text-gray-700 w-48"
                                     >ផែន *</label
                                 >
                                 <select
-                                    class="flex-1 border-gray-300 bg-white rounded-xl px-4 py-3 focus:border-[#01AAEB] focus:ring-2 focus:ring-[#01AAEB]/20 outline-none transition-all text-sm"
+                                    v-model="form.category"
+                                    :disabled="!form.status"
+                                    @change="clearLevels(2)"
+                                    :class="[
+                                        !form.status
+                                            ? 'bg-gray-100 cursor-not-allowed opacity-60'
+                                            : 'bg-white',
+                                    ]"
+                                    class="flex-1 border-gray-300 rounded-xl px-4 py-3 focus:border-[#01AAEB] focus:ring-2 focus:ring-[#01AAEB]/20 outline-none transition-all"
                                 >
-                                    <option disabled selected>
+                                    <option value="" disabled selected>
                                         ជ្រើសរើសផែន
                                     </option>
-                                    <option>ផែនការងារធនធានមនុស្ស</option>
-                                    <option>ផែនការងារសេនាធិការ</option>
-                                    <option>ផែនការងារនគរបាលព្រហ្មទណ្ឌ</option>
-                                    <option>
-                                        ផែនការងារនគរបាលប្រឆាំងបទល្មើសសេដ្ឋកិច្ច
-                                    </option>
-                                    <option>ផែនការងារប្រឆាំងគ្រឿងញៀន</option>
-                                    <option>
-                                        ផែនការងារប្រឆាំងការជួញដូរមនុស្ស
-                                        និងការពារអនីតិជន និងការពារយេនឌ័រ
-                                    </option>
-                                    <option>ផែនការងារសន្ដិសុខ</option>
-                                    <option>ផែនការងារសណ្ដាប់ធ្នាប់</option>
-                                    <option>
-                                        ផែនការងារគ្រប់គ្រងអាវុធជាតិផ្ទុះ
-                                        និងអគ្គីភ័យ
-                                    </option>
-                                    <option>ផែនការងារអន្ដោប្រវេសន៍</option>
-                                    <option>ផែនការងារអត្តសញ្ញាណកម្ម</option>
-                                    <option>
-                                        ផែនការងារភស្ដុភារ និងហិរញ្ញវត្ថុ
-                                    </option>
-                                    <option>
-                                        ផែននគរបាលការពារព្រំដែនគោកលេខ៨២១
+                                    <option
+                                        v-for="(val, key) in level2Options"
+                                        :key="key"
+                                        :value="key"
+                                    >
+                                        {{ val.label }}
                                     </option>
                                 </select>
                             </div>
+
                             <div class="flex items-center gap-6">
                                 <label
                                     class="text-md font-bold text-gray-700 w-48"
                                     >ការិយាល័យ *</label
                                 >
                                 <select
-                                    class="flex-1 border-gray-300 bg-white rounded-xl px-4 py-3 focus:border-[#01AAEB] focus:ring-2 focus:ring-[#01AAEB]/20 outline-none transition-all text-sm"
+                                    v-model="form.unit"
+                                    :disabled="!form.category"
+                                    @change="clearLevels(3)"
+                                    :class="[
+                                        !form.category
+                                            ? 'bg-gray-100 cursor-not-allowed opacity-60'
+                                            : 'bg-white',
+                                    ]"
+                                    class="flex-1 border-gray-300 rounded-xl px-4 py-3 focus:border-[#01AAEB] focus:ring-2 focus:ring-[#01AAEB]/20 outline-none transition-all"
                                 >
-                                    <option disabled selected>
+                                    <option value="" disabled selected>
                                         ជ្រើសរើសការិយាល័យ
                                     </option>
-                                    <option>ផែនការងារធនធានមនុស្ស</option>
-                                    <option>ផែនការងារសេនាធិការ</option>
-                                    <option>ផែនការងារនគរបាលព្រហ្មទណ្ឌ</option>
-                                    <option>
-                                        ផែនការងារនគរបាលប្រឆាំងបទល្មើសសេដ្ឋកិច្ច
+                                    <option
+                                        v-for="(val, key) in level3Options"
+                                        :key="key"
+                                        :value="key"
+                                    >
+                                        {{ val.label }}
                                     </option>
-                                    <option>ផែនការងារប្រឆាំងគ្រឿងញៀន</option>
-                                    <option>
-                                        ផែនការងារប្រឆាំងការជួញដូរមនុស្ស
-                                        និងការពារអនីតិជន និងការពារយេនឌ័រ
+                                </select>
+                            </div>
+
+                            <div class="flex items-center gap-6">
+                                <label
+                                    class="text-md font-bold text-gray-700 w-48"
+                                    >ផ្នែក *</label
+                                >
+                                <select
+                                    v-model="form.result"
+                                    :disabled="!form.unit"
+                                    :class="[
+                                        !form.unit
+                                            ? 'bg-gray-100 cursor-not-allowed opacity-60'
+                                            : 'bg-white',
+                                    ]"
+                                    class="flex-1 border-gray-300 rounded-xl px-4 py-3 focus:border-[#01AAEB] focus:ring-2 focus:ring-[#01AAEB]/20 outline-none transition-all"
+                                >
+                                    <option value="" disabled selected>
+                                        ជ្រើសរើសផ្នែក
                                     </option>
-                                    <option>ផែនការងារសន្ដិសុខ</option>
-                                    <option>ផែនការងារសណ្ដាប់ធ្នាប់</option>
-                                    <option>
-                                        ផែនការងារគ្រប់គ្រងអាវុធជាតិផ្ទុះ
-                                        និងអគ្គីភ័យ
-                                    </option>
-                                    <option>ផែនការងារអន្ដោប្រវេសន៍</option>
-                                    <option>ផែនការងារអត្តសញ្ញាណកម្ម</option>
-                                    <option>
-                                        ផែនការងារភស្ដុភារ និងហិរញ្ញវត្ថុ
-                                    </option>
-                                    <option>
-                                        ផែននគរបាលការពារព្រំដែនគោកលេខ៨២១
+                                    <option
+                                        v-for="res in level4Options"
+                                        :key="res"
+                                        :value="res"
+                                    >
+                                        {{ res }}
                                     </option>
                                 </select>
                             </div>
@@ -392,39 +449,99 @@ const onFileChange = (e) => {
                                     <option>ជាប់វិន័យ</option>
                                     <option>បេសកកម្ម</option>
                                     <option>សិក្សា</option>
-                                    <option>ចូលនិវត្តន៍</option>
+                                    <option>
+                                        ផ្ទេរចូល(ផ្ទេរពីខេត្តផ្សេងមក)
+                                    </option>
+                                    <option>
+                                        ផ្ទេរចេញ(ចេញទៅខេត្តឬអង្គភាពផ្សេង)
+                                    </option>
+                                    <option>
+                                        ផ្ទេរចូល(ផ្ទេរពីខេត្តផ្សេងមក)
+                                    </option>
+                                    <option>មរណៈ</option>
+                                    <option>កាត់ ឬបណ្ដេញចេញពីក្របខណ្ឌ</option>
+                                    <option>សោធនិវត្តន៍</option>
+                                    <option>ពិការ /បាត់បង់សមត្ថភាព</option>
+                                    <option>ព្យួរក្របខណ្ឌ</option>
                                 </select>
                             </div>
-                            <div class="flex items-center gap-6">
+                            <div class="flex items-start gap-6">
                                 <label
-                                    class="text-md font-bold text-gray-700 w-48"
+                                    class="text-md font-bold text-gray-700 w-48 mt-2"
+                                    >សំណុំឯកសារ *</label
                                 >
-                                    សំណុំឯកសារ *
-                                </label>
 
-                                <label
-                                    class="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg shadow-sm cursor-pointer hover:bg-gray-50 transition-colors"
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        class="w-5 h-5 text-blue-600"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
+                                <div class="flex flex-col gap-4">
+                                    <label
+                                        class="flex items-center justify-center gap-2 px-6 py-2 bg-white border border-gray-300 rounded-lg shadow-sm cursor-pointer hover:bg-gray-50 transition-all w-fit"
                                     >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            class="w-5 h-5 text-blue-600"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
+                                            />
+                                        </svg>
+                                        <span
+                                            class="text-sm font-medium text-gray-600"
+                                            >ជ្រើសរើសឯកសារ</span
+                                        >
+                                        <input
+                                            type="file"
+                                            class="hidden"
+                                            multiple
+                                            @change="handleFileChange"
                                         />
-                                    </svg>
-                                    <span
-                                        class="text-sm font-medium text-gray-600"
-                                        >ជ្រើសរើសឯកសារ</span
+                                    </label>
+
+                                    <div
+                                        v-if="fileList.length > 0"
+                                        class="flex flex-wrap gap-4"
                                     >
-                                    <input type="file" class="hidden" />
-                                </label>
+                                        <div
+                                            v-for="(file, index) in fileList"
+                                            :key="index"
+                                            class="relative group w-32 h-40 bg-blue-50 border-2 border-dashed border-blue-200 rounded-xl flex flex-col items-center justify-center p-3 text-center transition-hover hover:border-blue-400"
+                                        >
+                                            <div class="mb-2 text-blue-500">
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    class="w-10 h-10"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    stroke="currentColor"
+                                                >
+                                                    <path
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="1.5"
+                                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                                                    />
+                                                </svg>
+                                            </div>
+
+                                            <span
+                                                class="text-[11px] font-medium text-blue-800 break-all line-clamp-2"
+                                            >
+                                                {{ file.name }}
+                                            </span>
+
+                                            <button
+                                                @click="removeFile(index)"
+                                                class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs shadow-md hover:bg-red-600 opacity-0 group-hover:opacity-100 transition-opacity"
+                                            >
+                                                ✕
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 

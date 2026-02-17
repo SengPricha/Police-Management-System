@@ -16,14 +16,12 @@ class AuthController extends Controller
             'password' => 'required|string',
         ]);
 
-        // 2. ផ្ទៀងផ្ទាត់ Username និង Password
         if (!Auth::attempt($credentials)) {
             return response()->json([
                 'message' => 'Username ឬ Password មិនត្រឹមត្រូវ'
             ], 401);
         }
 
-        // 3. បង្កើត Token (Sanctum) បើ Login ជោគជ័យ
         $user = User::where('username', $request->username)->first();
         $token = $user->createToken('admin_token')->plainTextToken;
 

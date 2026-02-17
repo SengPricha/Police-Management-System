@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body>
+        <div
+            class="max-w-md mx-auto mt-10 p-6 bg-white rounded-xl shadow-md space-y-4"
+        >
+            <h2 class="text-xl font-bold text-gray-800 mb-4">
+                ជ្រើសរើសមុខវិជ្ជា និងសំណួរ
+            </h2>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700"
+                    >ជំហានទី 1: ជ្រើសរើសមុខវិជ្ជា</label
+                >
+                <select
+                    id="select1"
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 p-2 border"
+                >
+                    <option value="">-- សូមជ្រើសរើស --</option>
+                    <option value="english">English</option>
+                    <option value="khmer">Khmer Literature</option>
+                    <option value="math">Math</option>
+                    <option value="history">History</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700"
+                    >ជំហានទី 2: ជ្រើសរើសប្រធានបទ</label
+                >
+                <select
+                    id="select2"
+                    disabled
+                    class="mt-1 block w-full bg-gray-100 border-gray-300 rounded-md shadow-sm p-2 border cursor-not-allowed"
+                >
+                    <option value="">-- រង់ចាំជំហានទី 1 --</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700"
+                    >ជំហានទី 3: ជ្រើសរើសសំណួរ</label
+                >
+                <select
+                    id="select3"
+                    disabled
+                    class="mt-1 block w-full bg-gray-100 border-gray-300 rounded-md shadow-sm p-2 border cursor-not-allowed"
+                >
+                    <option value="">-- រង់ចាំជំហានទី 2 --</option>
+                </select>
+            </div>
+
+            <div
+                id="questionDisplay"
+                class="mt-6 p-4 bg-blue-50 text-blue-800 rounded-lg hidden"
+            >
+                <p class="font-semibold">សំណួររបស់អ្នកគឺ៖</p>
+                <p id="finalQuestion" class="italic"></p>
+            </div>
+        </div>
+
+        <script>
+            const data = {
+                english: {
+                    grammar: ["What is a Noun?", "Define Present Perfect."],
+                    vocabulary: ["Synonym of 'Happy'?", "Antonym of 'Fast'?"],
+                },
+                khmer: {
+                    literature: [
+                        "តើនរណាជានិពន្ធរឿងភូមិភរិច្ឆា?",
+                        "តួអង្គឯកក្នុងរឿងផ្កាស្រពោនគឺនរណា?",
+                    ],
+                    grammar: [
+                        "តើព្យញ្ជនៈខ្មែរមានប៉ុន្មានតួ?",
+                        "តើអ្វីទៅជាកិរិយាសព្ទ?",
+                    ],
+                },
+                math: {
+                    algebra: ["Solve 2x + 5 = 11", "What is x^2 - y^2?"],
+                    geometry: [
+                        "Area of a circle formula?",
+                        "What is a right angle?",
+                    ],
+                },
+                history: {
+                    cambodia: [
+                        "តើប្រាសាទអង្គរវត្តសាងសង់ក្នុងសតវត្សទីប៉ុន្មាន?",
+                        "ស្ដេចអង្គណាដែលរំដោះខ្មែរពីសៀម?",
+                    ],
+                    world: ["When did WW2 end?", "Who discovered America?"],
+                },
+            };
+
+            const s1 = document.getElementById("select1");
+            const s2 = document.getElementById("select2");
+            const s3 = document.getElementById("select3");
+            const display = document.getElementById("questionDisplay");
+            const finalQ = document.getElementById("finalQuestion");
+
+            s1.addEventListener("change", function () {
+                s2.innerHTML =
+                    '<option value="">-- ជ្រើសរើសប្រធានបទ --</option>';
+                s3.innerHTML =
+                    '<option value="">-- រង់ចាំជំហានទី 2 --</option>';
+                s3.disabled = true;
+                display.classList.add("hidden");
+
+                if (this.value) {
+                    s2.disabled = false;
+                    s2.classList.remove("bg-gray-100", "cursor-not-allowed");
+                    const topics = Object.keys(data[this.value]);
+                    topics.forEach((topic) => {
+                        let opt = document.createElement("option");
+                        opt.value = topic;
+                        opt.innerHTML =
+                            topic.charAt(0).toUpperCase() + topic.slice(1);
+                        s2.appendChild(opt);
+                    });
+                } else {
+                    s2.disabled = true;
+                    s2.classList.add("bg-gray-100", "cursor-not-allowed");
+                }
+            });
+
+            s2.addEventListener("change", function () {
+                s3.innerHTML = '<option value="">-- ជ្រើសរើសសំណួរ --</option>';
+                if (this.value) {
+                    s3.disabled = false;
+                    s3.classList.remove("bg-gray-100", "cursor-not-allowed");
+                    const questions = data[s1.value][this.value];
+                    questions.forEach((q) => {
+                        let opt = document.createElement("option");
+                        opt.value = q;
+                        opt.innerHTML = q;
+                        s3.appendChild(opt);
+                    });
+                } else {
+                    s3.disabled = true;
+                    s3.classList.add("bg-gray-100", "cursor-not-allowed");
+                }
+            });
+
+            s3.addEventListener("change", function () {
+                if (this.value) {
+                    display.classList.remove("hidden");
+                    finalQ.innerText = this.value;
+                } else {
+                    display.classList.add("hidden");
+                }
+            });
+        </script>
+    </body>
+</html>
